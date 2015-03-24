@@ -39,13 +39,15 @@ public final class JmxStarter {
   }
 
   private static void init() {
-    assertJavaVersion();
-    assertOracleHotspot();
+    Properties systemProperties = System.getProperties();
+
+    assertJavaVersion(systemProperties);
+    assertOracleHotspot(systemProperties);
     addToolsJarToClasspath();
   }
 
-  private static void assertJavaVersion() {
-    String javaSpec = System.getProperty("java.specification.version", "0.0");
+  private static void assertJavaVersion(Properties systemProperties) {
+    String javaSpec = systemProperties.getProperty("java.specification.version", "0.0");
     Matcher javaSpecMatcher = JAVA_SPEC_VERSION_PATTERN.matcher(javaSpec);
     if (!javaSpecMatcher.matches()) {
       throw new IllegalStateException(String.format(WRONG_JAVA_VERSION_FORMAT, javaSpec));
@@ -58,9 +60,9 @@ public final class JmxStarter {
     }
   }
 
-  private static void assertOracleHotspot() {
-    String javaVendor = System.getProperty("java.vendor", "unknown");
-    String vmName = System.getProperty("java.vm.name", "unknown");
+  private static void assertOracleHotspot(Properties systemProperties) {
+    String javaVendor = systemProperties.getProperty("java.vendor", "unknown");
+    String vmName = systemProperties.getProperty("java.vm.name", "unknown");
 
     if (!vmName.toLowerCase().contains("hotspot") || !javaVendor.toLowerCase().contains("oracle")) {
       throw new IllegalStateException(String.format(WRONG_JVM_FORMAT, javaVendor, vmName));
