@@ -1,13 +1,19 @@
 package com.github.ferstl.jmxstarter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.sun.tools.attach.VirtualMachine;
 
 
 public final class JmxStarter {
@@ -19,6 +25,20 @@ public final class JmxStarter {
   private JmxStarter() {}
 
   public static void main(String[] args) {
+    init();
+
+    String pid = getPid(args);
+    try {
+      VirtualMachine vm = VirtualMachine.attach(pid);
+      vm.startManagementAgent(managementProperties());
+      vm.detach();
+    } catch (Exception e) {
+      throw new IllegalStateException("Unable to attach to process " + pid, e);
+    }
+
+  }
+
+  private static void init() {
     assertJavaVersion();
     assertOracleHotspot();
     addToolsJarToClasspath();
@@ -61,5 +81,32 @@ public final class JmxStarter {
     } catch (Exception e) {
       throw new IllegalStateException("Unable to add tools.jar to classpath", e);
     }
+  }
+
+  private static String getPid(String[] args) {
+    if (args.length == 0) {
+      // System.console() is null on windows :-(
+      System.out.println("Enter PID:");
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in, Charset.defaultCharset()));
+
+      try {
+        return br.readLine();
+      } catch (IOException e) {
+        throw new IllegalStateException("Unable to read console", e);
+      }
+    }
+
+    return args[0];
+  }
+
+  // TODO: Make configurable
+  private static Properties managementProperties() {
+    Properties props = new Properties();
+    props.put("com.sun.management.jmxremote.port", "19874");
+    props.put("com.sun.management.jmxremote.rmi.port", "19874");
+    props.put("com.sun.management.jmxremote.authenticate", "false");
+    props.put("com.sun.management.jmxremote.ssl", "false");
+
+    return props;
   }
 }
