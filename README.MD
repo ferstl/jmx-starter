@@ -20,4 +20,3 @@
 
 ## TODO
 - Make JMX properties configurable
-- Check target JVM for Oracle HotSpot 1.8+

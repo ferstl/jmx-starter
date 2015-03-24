@@ -30,7 +30,13 @@ public final class JmxStarter {
     String pid = getPid(args);
     try {
       VirtualMachine vm = VirtualMachine.attach(pid);
+
+      Properties targetVmProperties = vm.getSystemProperties();
+      assertJavaVersion(targetVmProperties);
+      assertOracleHotspot(targetVmProperties);
+
       vm.startManagementAgent(managementProperties());
+
       vm.detach();
     } catch (Exception e) {
       throw new IllegalStateException("Unable to attach to process " + pid, e);
