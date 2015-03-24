@@ -3,11 +3,14 @@
 
 ## Usage
 
-```
-    java -jar path/to/jarfile.jar <pid>
-```
+    # Build
+    mvn clean package
+    
+    # Run
+    java -jar target/jmx-starter-1.0.0-SNAPSHOT.jar <pid>
 
-If `<pid>` is omitted, you'll be asked for it.
+- If `<pid>` is omitted, you'll be asked for it.
+- If on Windows, you probably need to use `%JAVA_HOME%\bin\java` to get the JDK version instead of the JRE version
 
 
 ## Limitations
