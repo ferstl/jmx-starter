@@ -14,6 +14,6 @@
 
 
 ## Limitations
-- Does only work on Oracle's HotSpot JVM 1.8+
+- Does only work on Oracle's HotSpot JVM 1.8+ (JVM running this program *and* the target JVM)
 - JMX port is hard coded on 19874
-- Requires JDK or Server JRE for execution
+- This program requires a JDK or Server JRE for execution
