@@ -86,6 +86,7 @@
     <module name="HideUtilityClassConstructor"/>
     <module name="InterfaceIsType"/>
     <module name="VisibilityModifier">
+      <property name="packageAllowed" value="true"/>
       <property name="publicMemberPattern" value="(^serialVersionUID)|(^expectedException.*)|(^temporaryFolder.*)"/>
     </module>
     <module name="ArrayTypeStyle"/>
