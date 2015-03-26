@@ -20,3 +20,4 @@
 
 ## TODO
 - Make JMX properties configurable
+- Attach automatically if there is only one other Java process
