@@ -1,11 +1,8 @@
 package com.github.ferstl.jmxstarter;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,12 +24,11 @@ public final class JmxStarter {
   public static void main(String[] args) {
     JmxStarterOptions options = init(args);
 
-    String pid = getPid(options);
     try (URLClassLoader classLoader = createToolsClassLoader()) {
       Consumer<String> attacher = loadAttacher(classLoader, managementProperties(options));
-      attacher.accept(pid);
+      attacher.accept(options.pid);
     } catch (Exception e) {
-      throw new IllegalStateException("Unable to attach to process " + pid, e);
+      throw new IllegalStateException("Unable to attach to process " + options.pid, e);
     }
 
   }
@@ -69,22 +65,6 @@ public final class JmxStarter {
     if (!vmName.toLowerCase().contains("hotspot") || !javaVendor.toLowerCase().contains("oracle")) {
       throw new IllegalStateException(String.format(WRONG_JVM_FORMAT, javaVendor, vmName));
     }
-  }
-
-  private static String getPid(JmxStarterOptions options) {
-    if (options.pid == null) {
-      // System.console() is null on windows :-(
-      System.out.println("Enter PID:");
-      BufferedReader br = new BufferedReader(new InputStreamReader(System.in, Charset.defaultCharset()));
-
-      try {
-        return br.readLine();
-      } catch (IOException e) {
-        throw new IllegalStateException("Unable to read console", e);
-      }
-    }
-
-    return options.pid;
   }
 
   static Properties managementProperties(JmxStarterOptions options) {

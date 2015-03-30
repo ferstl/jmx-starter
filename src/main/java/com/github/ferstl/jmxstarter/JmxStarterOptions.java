@@ -1,5 +1,9 @@
 package com.github.ferstl.jmxstarter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,10 +35,24 @@ public final class JmxStarterOptions {
   private void postParse() {
     if (this.pidList.size() == 1) {
       this.pid = this.pidList.get(0);
+    } else if (this.pidList.size() == 0) {
+      this.pid = readPidFromStdIn();
     } else if (this.pidList.size() > 1) {
       throw new ParameterException("Only one PID is possible");
     }
 
+  }
+
+  private static String readPidFromStdIn() {
+    // System.console() is null on windows :-(
+    System.out.println("Enter PID:");
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in, Charset.defaultCharset()));
+
+    try {
+      return br.readLine();
+    } catch (IOException e) {
+      throw new ParameterException(e);
+    }
   }
 
   public static Optional<JmxStarterOptions> parse(String... args) {
@@ -54,9 +72,5 @@ public final class JmxStarterOptions {
     }
 
     return Optional.of(options);
-  }
-
-  public static void main(String[] args) {
-    parse("-f");
   }
 }
