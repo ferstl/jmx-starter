@@ -32,6 +32,17 @@ public class JmxStarterOptionsTest {
     assertEquals("4242", options.pid);
   }
 
+  @Test
+  public void nonDefaults() {
+    Optional<JmxStarterOptions> optionsOptional = JmxStarterOptions.parse("-p", "9998", "-r", "9999", "4242");
+    assertTrue(optionsOptional.isPresent());
+
+    JmxStarterOptions options = optionsOptional.get();
+    assertEquals(9998, options.jmxPort);
+    assertEquals(9999, options.rmiPort);
+    assertEquals("4242", options.pid);
+  }
+
   private void setInput(String s) {
     System.setIn(new ByteArrayInputStream(s.getBytes(Charset.defaultCharset())));
   }
