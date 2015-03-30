@@ -27,7 +27,7 @@ public final class JmxStarter {
   public static void main(String[] args) {
     JmxStarterOptions options = init(args);
 
-    String pid = getPid(args);
+    String pid = getPid(options);
     try (URLClassLoader classLoader = createToolsClassLoader()) {
       Consumer<String> attacher = loadAttacher(classLoader, managementProperties(options));
       attacher.accept(pid);
@@ -71,8 +71,8 @@ public final class JmxStarter {
     }
   }
 
-  private static String getPid(String[] args) {
-    if (args.length == 0) {
+  private static String getPid(JmxStarterOptions options) {
+    if (options.pid == null || options.pid.size() != 1) {
       // System.console() is null on windows :-(
       System.out.println("Enter PID:");
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in, Charset.defaultCharset()));
@@ -84,7 +84,7 @@ public final class JmxStarter {
       }
     }
 
-    return args[0];
+    return options.pid.get(0);
   }
 
   static Properties managementProperties(JmxStarterOptions options) {

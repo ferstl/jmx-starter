@@ -1,14 +1,20 @@
 package com.github.ferstl.jmxstarter;
 
+import java.util.List;
 import java.util.Optional;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.beust.jcommander.validators.PositiveInteger;
 
 
 public final class JmxStarterOptions {
 
   private static final String PROGRAM_NAME = "java -jar jmx-starter.jar";
+
+  // Main parameter has to be a list
+  @Parameter(validateWith = PositiveInteger.class, description = "<pid>")
+  List<String> pid;
 
   @Parameter(names = {"-p", "--jmx-port"}, description = "JMX port")
   int jmxPort = 7091;
