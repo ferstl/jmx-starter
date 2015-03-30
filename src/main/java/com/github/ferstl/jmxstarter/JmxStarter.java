@@ -9,6 +9,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
@@ -24,11 +25,11 @@ public final class JmxStarter {
   private JmxStarter() {}
 
   public static void main(String[] args) {
-    init();
+    JmxStarterOptions options = init(args);
 
     String pid = getPid(args);
     try (URLClassLoader classLoader = createToolsClassLoader()) {
-      Consumer<String> attacher = loadAttacher(classLoader);
+      Consumer<String> attacher = loadAttacher(classLoader, managementProperties(options));
       attacher.accept(pid);
     } catch (Exception e) {
       throw new IllegalStateException("Unable to attach to process " + pid, e);
@@ -36,11 +37,15 @@ public final class JmxStarter {
 
   }
 
-  private static void init() {
+  private static JmxStarterOptions init(String[] args) {
     Properties systemProperties = System.getProperties();
 
     assertJavaVersion(systemProperties);
     assertOracleHotspot(systemProperties);
+
+    Optional<JmxStarterOptions> options = JmxStarterOptions.parse(args);
+    // TODO: Deal with empty optional
+    return options.get();
   }
 
   static void assertJavaVersion(Properties systemProperties) {
@@ -82,11 +87,10 @@ public final class JmxStarter {
     return args[0];
   }
 
-  // TODO: Make configurable
-  static Properties managementProperties() {
+  static Properties managementProperties(JmxStarterOptions options) {
     Properties props = new Properties();
-    props.put("com.sun.management.jmxremote.port", "19874");
-    props.put("com.sun.management.jmxremote.rmi.port", "19874");
+    props.put("com.sun.management.jmxremote.port", options.jmxPort);
+    props.put("com.sun.management.jmxremote.rmi.port", options.rmiPort);
     props.put("com.sun.management.jmxremote.authenticate", "false");
     props.put("com.sun.management.jmxremote.ssl", "false");
 
@@ -97,10 +101,10 @@ public final class JmxStarter {
   // with a different class loader
   // referencing it directly will result in a ClassCastException
   @SuppressWarnings("unchecked")
-  private static Consumer<String> loadAttacher(ClassLoader classLoader) {
+  private static Consumer<String> loadAttacher(ClassLoader classLoader, Properties props) {
     try {
       Class<?> clazz = Class.forName("com.github.ferstl.jmxstarter.LoadedWithToolsJar", false, classLoader);
-      return (Consumer<String>) clazz.getConstructor().newInstance();
+      return (Consumer<String>) clazz.getConstructor(Properties.class).newInstance(props);
     } catch (ReflectiveOperationException e) {
       throw new IllegalStateException("Unable to load class", e);
     }
