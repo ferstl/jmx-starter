@@ -72,7 +72,7 @@ public final class JmxStarter {
   }
 
   private static String getPid(JmxStarterOptions options) {
-    if (options.pid == null || options.pid.size() != 1) {
+    if (options.pid == null) {
       // System.console() is null on windows :-(
       System.out.println("Enter PID:");
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in, Charset.defaultCharset()));
@@ -84,7 +84,7 @@ public final class JmxStarter {
       }
     }
 
-    return options.pid.get(0);
+    return options.pid;
   }
 
   static Properties managementProperties(JmxStarterOptions options) {
