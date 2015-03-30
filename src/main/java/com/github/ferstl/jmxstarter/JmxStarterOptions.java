@@ -8,6 +8,8 @@ import com.beust.jcommander.ParameterException;
 
 public final class JmxStarterOptions {
 
+  private static final String PROGRAM_NAME = "java -jar jmx-starter.jar";
+
   @Parameter(names = {"-p", "--jmx-port"}, description = "JMX port")
   int jmxPort = 7091;
 
@@ -20,6 +22,7 @@ public final class JmxStarterOptions {
   public static Optional<JmxStarterOptions> parse(String... args) {
     JmxStarterOptions options = new JmxStarterOptions();
     JCommander jcmd = new JCommander(options);
+    jcmd.setProgramName(PROGRAM_NAME);
 
     try {
       jcmd.parse(args);
@@ -33,5 +36,4 @@ public final class JmxStarterOptions {
 
     return Optional.of(options);
   }
-
 }
