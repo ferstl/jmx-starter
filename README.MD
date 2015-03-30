@@ -26,5 +26,4 @@
 - This program requires a JDK or Server JRE for execution
 
 ## TODO
-- Make JMX properties configurable
 - Attach automatically if there is only one other Java process
