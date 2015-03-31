@@ -7,7 +7,8 @@
     mvn clean package
     
     # Run
-    Usage: java -jar jmx-starter-1.0.0-SNAPSHOT.jar [options] <pid>
+    java -jar target/jmx-starter.jar [options] <pid>
+
     Options:
     -p, --jmx-port
        JMX port
