@@ -16,11 +16,11 @@ public final class AttacherLoader {
 
   @SuppressWarnings("unchecked")
   public static Consumer<String> loadAttacher(Properties props) {
-    // We must avoid references to LoadedWithToolsJar since will be loaded
+    // We must avoid references to Attacher since will be loaded
     // with a different class loader
     // referencing it directly will result in a ClassCastException
     try (URLClassLoader classLoader = createToolsClassLoader()) {
-      Class<?> clazz = Class.forName("com.github.ferstl.jmxstarter.LoadedWithToolsJar", false, classLoader);
+      Class<?> clazz = Class.forName("com.github.ferstl.jmxstarter.Attacher", false, classLoader);
       return (Consumer<String>) clazz.getConstructor(Properties.class).newInstance(props);
     } catch (ReflectiveOperationException | IOException e) {
       throw new IllegalStateException("Unable to load class", e);
@@ -42,7 +42,7 @@ public final class AttacherLoader {
       // We have to have the URLs of the system class loader in the new class loader
       // instead of having the system class loader as a parent.
       // If the system class loader is the parent then it will be the defining class loader
-      // of LoadedWithToolsJar which means it will be used to try to load com.sun.tools.attach.VirtualMachine
+      // of Attacher which means it will be used to try to load com.sun.tools.attach.VirtualMachine
       // which will fail.
       URL[] systemUrls = ((URLClassLoader) systemClassLoader).getURLs();
       int systemUrlsLength = systemUrls.length;

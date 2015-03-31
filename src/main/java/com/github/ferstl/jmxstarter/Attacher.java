@@ -8,11 +8,11 @@ import static com.github.ferstl.jmxstarter.JmxStarter.assertOracleHotspot;
 
 
 // Must be public otherwise we have to use setAccessible(true)
-public final class LoadedWithToolsJar implements Consumer<String> {
+public final class Attacher implements Consumer<String> {
 
   private final Properties managementProperties;
 
-  public LoadedWithToolsJar(Properties managementProperties) {
+  public Attacher(Properties managementProperties) {
     this.managementProperties = managementProperties;
   }
 
