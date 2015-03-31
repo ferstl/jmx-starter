@@ -14,11 +14,11 @@ public final class AttacherLoader {
 
   private AttacherLoader() {}
 
-  // We must avoid references to LoadedWithToolsJar since will be loaded
-  // with a different class loader
-  // referencing it directly will result in a ClassCastException
   @SuppressWarnings("unchecked")
   public static Consumer<String> loadAttacher(Properties props) {
+    // We must avoid references to LoadedWithToolsJar since will be loaded
+    // with a different class loader
+    // referencing it directly will result in a ClassCastException
     try (URLClassLoader classLoader = createToolsClassLoader()) {
       Class<?> clazz = Class.forName("com.github.ferstl.jmxstarter.LoadedWithToolsJar", false, classLoader);
       return (Consumer<String>) clazz.getConstructor(Properties.class).newInstance(props);
@@ -38,6 +38,7 @@ public final class AttacherLoader {
       if (!(systemClassLoader instanceof URLClassLoader)) {
         throw new IllegalStateException("expect system class loader to be a URLClassLoader but was: " + systemClassLoader.getClass());
       }
+
       // We have to have the URLs of the system class loader in the new class loader
       // instead of having the system class loader as a parent.
       // If the system class loader is the parent then it will be the defining class loader
@@ -48,6 +49,7 @@ public final class AttacherLoader {
       URL[] urls = new URL[systemUrlsLength + 1];
       System.arraycopy(systemUrls, 0, urls, 0, systemUrlsLength);
       urls[systemUrlsLength] = toolsPath.toUri().toURL();
+
       // parent = null means the bootstrap class loader is the parent
       return new URLClassLoader(urls, null);
     } catch (IOException e) {
