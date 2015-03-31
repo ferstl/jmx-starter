@@ -56,6 +56,24 @@ public class JmxStarterOptionsTest {
   }
 
   @Test
+  public void nonNumericJmxPort() {
+    Optional<JmxStarterOptions> optionsOptional = JmxStarterOptions.parse("-p", "notnumeric");
+    assertFalse(optionsOptional.isPresent());
+  }
+
+  @Test
+  public void nonNumericRmiPort() {
+    Optional<JmxStarterOptions> optionsOptional = JmxStarterOptions.parse("-r", "notnumeric");
+    assertFalse(optionsOptional.isPresent());
+  }
+
+  @Test
+  public void nonNumericRmiPid() {
+    Optional<JmxStarterOptions> optionsOptional = JmxStarterOptions.parse("notnumeric");
+    assertFalse(optionsOptional.isPresent());
+  }
+
+  @Test
   public void multiplePids() {
     Optional<JmxStarterOptions> optionsOptional = JmxStarterOptions.parse("4242", "4243");
     assertFalse(optionsOptional.isPresent());
