@@ -37,7 +37,7 @@ public final class JmxStarterOptions {
       this.pid = this.pidList.get(0);
     } else if (this.pidList.size() == 0) {
       this.pid = readPidFromStdIn();
-    } else if (this.pidList.size() > 1) {
+    } else {
       throw new ParameterException("Only one PID is possible");
     }
 
