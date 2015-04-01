@@ -135,7 +135,7 @@
       <id>travis</id>
       <activation>
         <property>
-          <name>${env.RUNNING_ON_TRAVIS}</name>
+          <name>env.RUNNING_ON_TRAVIS</name>
         </property>
       </activation>
       <properties>
