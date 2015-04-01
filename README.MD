@@ -1,8 +1,6 @@
 # jmx-starter
 *- Starts the JMX management agent in another JVM*
 
-[![Build Status](https://travis-ci.org/ferstl/jmx-starter.svg)](https://travis-ci.org/ferstl/jmx-starter)
-
 ## Usage
 
     # Build
