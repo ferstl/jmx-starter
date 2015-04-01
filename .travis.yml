@@ -1,7 +1,6 @@
 language: java
 
-env:
-  - RUNNING_ON_TRAVIS="true"
+before_install: ls -alr /usr/lib/jvm/*
 
 jdk:
 - oraclejdk8
