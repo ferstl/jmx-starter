@@ -129,19 +129,5 @@
       </plugins>
     </pluginManagement>
   </build>
-  
-  <profiles>
-    <profile>
-      <id>travis</id>
-      <activation>
-        <property>
-          <name>env.RUNNING_ON_TRAVIS</name>
-        </property>
-      </activation>
-      <properties>
-        <toolsjar.path>/usr/lib/jvm/java-8-oracle/lib/tools.jar</toolsjar.path>
-      </properties>
-    </profile>
-  </profiles>
 
 </project>
