@@ -1,10 +1,10 @@
 package com.github.ferstl.jmxstarter;
 
-import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.beust.jcommander.ParameterException;
 
 
 public final class JmxStarter {
@@ -16,10 +16,16 @@ public final class JmxStarter {
   private JmxStarter() {}
 
   public static void main(String[] args) {
-    JmxStarterOptions options = init(args);
-
-    Consumer<String> attacher = AttacherLoader.loadAttacher(managementProperties(options));
-    attacher.accept(options.pid);
+    try {
+      JmxStarterOptions options = init(args);
+      Consumer<String> attacher = AttacherLoader.loadAttacher(managementProperties(options));
+      attacher.accept(options.pid);
+    } catch (ParameterException e) {
+      System.exit(1);
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
   }
 
   private static JmxStarterOptions init(String[] args) {
@@ -28,9 +34,7 @@ public final class JmxStarter {
     assertJavaVersion(systemProperties);
     assertOracleHotspot(systemProperties);
 
-    Optional<JmxStarterOptions> options = JmxStarterOptions.parse(args);
-    // TODO: Deal with empty optional
-    return options.get();
+    return JmxStarterOptions.parse(args);
   }
 
   static void assertJavaVersion(Properties systemProperties) {

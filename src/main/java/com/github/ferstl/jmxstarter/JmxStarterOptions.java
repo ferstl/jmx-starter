@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
@@ -55,7 +54,14 @@ public final class JmxStarterOptions {
     }
   }
 
-  public static Optional<JmxStarterOptions> parse(String... args) {
+  /**
+   * Create an instance of this class by parsing the given arguments. If the arguments cannot be parsed, a help message
+   * will be printed to System.out an a {@link ParameterException} is thrown.
+   *
+   * @param args Arguments to parse
+   * @throws ParameterException in case the arguments cannot be parsed.
+   */
+  public static JmxStarterOptions parse(String... args) {
     JmxStarterOptions options = new JmxStarterOptions();
     JCommander jcmd = new JCommander(options);
     jcmd.setProgramName(PROGRAM_NAME);
@@ -68,9 +74,9 @@ public final class JmxStarterOptions {
       jcmd.usage(sb);
       System.err.println(sb);
 
-      return Optional.empty();
+      throw e;
     }
 
-    return Optional.of(options);
+    return options;
   }
 }
