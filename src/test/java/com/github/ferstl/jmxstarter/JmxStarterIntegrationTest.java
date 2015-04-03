@@ -3,35 +3,73 @@ package com.github.ferstl.jmxstarter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.management.RuntimeMXBean;
+import java.net.MalformedURLException;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
+import javax.management.JMX;
+import javax.management.MBeanServerConnection;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
 import org.junit.Test;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-
 
 public class JmxStarterIntegrationTest {
 
   private static final String JAVA_COMMAND = getJavaCommand();
   private static final String TEST_APP_CLASSPATH = "target/test-classes";
-  private static final String TEST_CLASSPATH = getClassPath();
 
   @Test
-  public void test() {
+  public void startManagementAgent() {
     Process testApp = startJavaProcess(TEST_APP_CLASSPATH, TestApplication.class);
     String testAppPid = readPid(testApp);
 
-    Process attacher = startJavaProcess(TEST_CLASSPATH, JmxStarter.class, testAppPid);
+    // Start the management agent in the test application
+    JmxStarter.main(new String[]{testAppPid});
+
+    // Try to connect to the application
+    verifyManagementAgent();
+
     try {
-      attacher.waitFor(2, TimeUnit.SECONDS);
       testApp.destroy();
       testApp.waitFor();
     } catch (InterruptedException e) {
       fail("interrupted");
     }
-
   }
 
+  private void verifyManagementAgent() {
+    JMXServiceURL jmxServiceUrl = createJmxServiceUrl();
+    ObjectName runtimeMxBeanObjectName = createRuntimeMXBeanObjectName();
+
+    try (JMXConnector jmxc = JMXConnectorFactory.connect(jmxServiceUrl)) {
+      MBeanServerConnection connection = jmxc.getMBeanServerConnection();
+      RuntimeMXBean proxy = JMX.newMXBeanProxy(connection, runtimeMxBeanObjectName, RuntimeMXBean.class);
+      assertNotNull(proxy.getName());
+    } catch (IOException e) {
+      throw new IllegalStateException("Unable to connect to test process");
+    }
+  }
+
+  private ObjectName createRuntimeMXBeanObjectName() {
+    try {
+      return new ObjectName("java.lang:type=Runtime");
+    } catch (MalformedObjectNameException e) {
+      throw new IllegalArgumentException("Unable to create object name for runtime MXBean", e);
+    }
+  }
+
+  private JMXServiceURL createJmxServiceUrl() {
+    try {
+      return new JMXServiceURL("service:jmx:rmi:///jndi/rmi://:7091/jmxrmi");
+    } catch (MalformedURLException e) {
+      throw new IllegalArgumentException("Cannot create JMX service URL", e);
+    }
+  }
 
   private static Process startJavaProcess(String classpath, Class<?> mainClass, String... args) {
     String[] finalArgs = new String[args.length + 4];
@@ -54,10 +92,6 @@ public class JmxStarterIntegrationTest {
     String javaExecutable = isWindows ? "java.exe" : "java";
 
     return Paths.get(javaHome, "bin", javaExecutable).normalize().toString();
-  }
-
-  private static String getClassPath() {
-    return System.getProperty("java.class.path", ".");
   }
 
   private static String readPid(Process process) {
