@@ -3,7 +3,7 @@ package com.github.ferstl.jmxstarter;
 import java.lang.management.ManagementFactory;
 
 /**
- * Application that writs it PID to stdout and waits for 2 minutes.
+ * Application that writes it PID to stdout and waits for 2 minutes.
  */
 final class TestApplication {
 
