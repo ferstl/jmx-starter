@@ -25,7 +25,7 @@ final class VmAssert {
 
     int major = Integer.parseInt(javaSpecMatcher.group(1));
     int minor = Integer.parseInt(javaSpecMatcher.group(2));
-    if (major < 1 && minor < 8) {
+    if (major < 1 || (major == 1 && minor < 8)) {
       throw new IllegalStateException(String.format(WRONG_JAVA_VERSION_FORMAT, javaSpec));
     }
   }
