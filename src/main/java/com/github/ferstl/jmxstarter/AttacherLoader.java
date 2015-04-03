@@ -14,15 +14,16 @@ public final class AttacherLoader {
 
   private AttacherLoader() {}
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({"unchecked", "resource"})
   public static Consumer<String> loadAttacher(Properties props) {
     // We must avoid references to Attacher since will be loaded
     // with a different class loader
     // referencing it directly will result in a ClassCastException
-    try (URLClassLoader classLoader = createToolsClassLoader()) {
+    URLClassLoader classLoader = createToolsClassLoader();
+    try {
       Class<?> clazz = Class.forName("com.github.ferstl.jmxstarter.Attacher", false, classLoader);
       return (Consumer<String>) clazz.getConstructor(Properties.class).newInstance(props);
-    } catch (ReflectiveOperationException | IOException e) {
+    } catch (ReflectiveOperationException e) {
       throw new IllegalStateException("Unable to load class", e);
     }
   }
