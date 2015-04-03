@@ -3,8 +3,8 @@ package com.github.ferstl.jmxstarter;
 import java.util.Properties;
 import java.util.function.Consumer;
 import com.sun.tools.attach.VirtualMachine;
-import static com.github.ferstl.jmxstarter.JmxStarter.assertJavaVersion;
-import static com.github.ferstl.jmxstarter.JmxStarter.assertOracleHotspot;
+import static com.github.ferstl.jmxstarter.VmAssert.assertJavaVersion;
+import static com.github.ferstl.jmxstarter.VmAssert.assertOracleHotspot;
 
 
 // Must be public otherwise we have to use setAccessible(true)
