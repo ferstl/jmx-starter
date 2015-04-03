@@ -7,6 +7,8 @@ import org.junit.Test;
 import com.beust.jcommander.ParameterException;
 import static java.nio.charset.Charset.defaultCharset;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 
 public class JmxStarterOptionsTest {
@@ -42,6 +44,27 @@ public class JmxStarterOptionsTest {
     assertEquals(9998, options.jmxPort);
     assertEquals(9999, options.rmiPort);
     assertEquals("4242", options.pid);
+  }
+
+  @Test
+  public void helpShortOption() {
+    JmxStarterOptions options = JmxStarterOptions.parse("-h");
+    assertTrue(options.help);
+    assertNull(options.pid);
+  }
+
+  @Test
+  public void helpLongOption() {
+    JmxStarterOptions options = JmxStarterOptions.parse("--help");
+    assertTrue(options.help);
+    assertNull(options.pid);
+  }
+
+  @Test
+  public void helpAndOtherOptions() {
+    JmxStarterOptions options = JmxStarterOptions.parse("-p", "9998", "-r", "9999", "-h", "4242");
+    assertTrue(options.help);
+    assertNull(options.pid);
   }
 
   @Test(expected = ParameterException.class)

@@ -18,6 +18,10 @@ public final class JmxStarter {
   public static void main(String[] args) {
     try {
       JmxStarterOptions options = init(args);
+      if (options.help) {
+        return;
+      }
+
       Consumer<String> attacher = AttacherLoader.loadAttacher(managementProperties(options));
       attacher.accept(options.pid);
     } catch (ParameterException e) {

@@ -26,6 +26,9 @@ public final class JmxStarterOptions {
   @Parameter(names = {"-r", "--rmi-port"}, description = "RMI registry port")
   int rmiPort = this.jmxPort;
 
+  @Parameter(names = {"-h", "--help"}, help = true, description = "Prints this help message")
+  boolean help;
+
   String pid;
 
 
@@ -56,7 +59,8 @@ public final class JmxStarterOptions {
 
   /**
    * Create an instance of this class by parsing the given arguments. If the arguments cannot be parsed, a help message
-   * will be printed to System.out an a {@link ParameterException} is thrown.
+   * will be printed to {@link System#err} an a {@link ParameterException} is thrown. If one of the arguments is
+   * {@code -h} or {@code --help}, a help message will be printed to {@link System#out}.
    *
    * @param args Arguments to parse
    * @throws ParameterException in case the arguments cannot be parsed.
@@ -68,7 +72,12 @@ public final class JmxStarterOptions {
 
     try {
       jcmd.parse(args);
-      options.postParse();
+
+      if (options.help) {
+        jcmd.usage();
+      } else {
+        options.postParse();
+      }
     } catch (ParameterException e) {
       StringBuilder sb = new StringBuilder(e.getMessage()).append("\n");
       jcmd.usage(sb);
