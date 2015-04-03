@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.lang.management.RuntimeMXBean;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
+import java.security.Permission;
 import java.util.Arrays;
 import javax.management.JMX;
 import javax.management.MBeanServerConnection;
@@ -14,14 +15,36 @@ import javax.management.ObjectName;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 public class JmxStarterIntegrationTest {
 
+  private static final PreventSystemExitSecurityManager SYSTEM_EXIT_PREVENTER = new PreventSystemExitSecurityManager();
   private static final String JAVA_COMMAND = getJavaCommand();
   private static final String TEST_APP_CLASSPATH = "target/test-classes";
+
+
+  /**
+   * Prevent invocations of {@code System.exit()} during the test.
+   */
+  @Before
+  public void preventSystemExit() {
+    SYSTEM_EXIT_PREVENTER.isSystemExitAllowed = false;
+    System.setSecurityManager(SYSTEM_EXIT_PREVENTER);
+  }
+
+  /**
+   * Allow {@code System.exit()} when the test is finished. Surefire calls System.exit(), which is OK and must be
+   * possible.
+   */
+  @After
+  public void allowSystemExit() {
+    SYSTEM_EXIT_PREVENTER.isSystemExitAllowed = true;
+  }
 
   @Test
   public void startManagementAgent() {
@@ -42,7 +65,7 @@ public class JmxStarterIntegrationTest {
     }
   }
 
-  private void verifyManagementAgent() {
+  private static void verifyManagementAgent() {
     JMXServiceURL jmxServiceUrl = createJmxServiceUrl();
     ObjectName runtimeMxBeanObjectName = createRuntimeMXBeanObjectName();
 
@@ -55,7 +78,7 @@ public class JmxStarterIntegrationTest {
     }
   }
 
-  private ObjectName createRuntimeMXBeanObjectName() {
+  private static ObjectName createRuntimeMXBeanObjectName() {
     try {
       return new ObjectName("java.lang:type=Runtime");
     } catch (MalformedObjectNameException e) {
@@ -63,7 +86,7 @@ public class JmxStarterIntegrationTest {
     }
   }
 
-  private JMXServiceURL createJmxServiceUrl() {
+  private static JMXServiceURL createJmxServiceUrl() {
     try {
       return new JMXServiceURL("service:jmx:rmi:///jndi/rmi://:7091/jmxrmi");
     } catch (MalformedURLException e) {
@@ -100,6 +123,21 @@ public class JmxStarterIntegrationTest {
       return pidReader.readLine();
     } catch (IOException e) {
       throw new IllegalStateException("Unable to read PID from process.", e);
+    }
+  }
+
+  private static class PreventSystemExitSecurityManager extends SecurityManager {
+
+    private boolean isSystemExitAllowed;
+
+    @Override
+    public void checkPermission(Permission perm) {/* NOP */}
+
+    @Override
+    public void checkExit(int status) {
+      if (!this.isSystemExitAllowed) {
+        throw new SecurityException("System.exit() is not allowed during unit test.");
+      }
     }
   }
 }
