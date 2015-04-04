@@ -15,14 +15,15 @@ public final class AttacherLoader {
   private AttacherLoader() {}
 
   @SuppressWarnings({"unchecked", "resource"})
-  public static Consumer<String> loadAttacher(Properties props) {
+  public static Consumer<String> loadAttacher(JmxStarterOptions options) {
     // We must avoid references to Attacher since will be loaded
     // with a different class loader
     // referencing it directly will result in a ClassCastException
     URLClassLoader classLoader = createToolsClassLoader();
     try {
       Class<?> clazz = Class.forName("com.github.ferstl.jmxstarter.Attacher", false, classLoader);
-      return (Consumer<String>) clazz.getConstructor(Properties.class).newInstance(props);
+      Properties managementProperties = managementProperties(options);
+      return (Consumer<String>) clazz.getConstructor(Properties.class).newInstance(managementProperties);
     } catch (ReflectiveOperationException e) {
       throw new IllegalStateException("Unable to load class", e);
     }
@@ -56,5 +57,15 @@ public final class AttacherLoader {
     } catch (IOException e) {
       throw new IllegalStateException("Unable to add tools.jar to classpath", e);
     }
+  }
+
+  static Properties managementProperties(JmxStarterOptions options) {
+    Properties props = new Properties();
+    props.put("com.sun.management.jmxremote.port", options.jmxPort);
+    props.put("com.sun.management.jmxremote.rmi.port", options.rmiPort);
+    props.put("com.sun.management.jmxremote.authenticate", "false");
+    props.put("com.sun.management.jmxremote.ssl", "false");
+
+    return props;
   }
 }

@@ -17,7 +17,7 @@ public final class JmxStarter {
         return;
       }
 
-      Consumer<String> attacher = AttacherLoader.loadAttacher(managementProperties(options));
+      Consumer<String> attacher = AttacherLoader.loadAttacher(options);
       attacher.accept(options.pid);
     } catch (ParameterException e) {
       System.exit(1);
@@ -33,15 +33,5 @@ public final class JmxStarter {
     VmAssert.assertOracleHotspot(systemProperties);
 
     return JmxStarterOptions.parse(args);
-  }
-
-  static Properties managementProperties(JmxStarterOptions options) {
-    Properties props = new Properties();
-    props.put("com.sun.management.jmxremote.port", options.jmxPort);
-    props.put("com.sun.management.jmxremote.rmi.port", options.rmiPort);
-    props.put("com.sun.management.jmxremote.authenticate", "false");
-    props.put("com.sun.management.jmxremote.ssl", "false");
-
-    return props;
   }
 }
