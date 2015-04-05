@@ -5,6 +5,50 @@
   <groupId>com.github.ferstl</groupId>
   <artifactId>jmx-starter</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+  <name>JMX Starter</name>
+  <description>Starts the JMX management agent in another JVM</description>
+  <url>https://github.com/ferstl/jmx-starter</url>
+  <inceptionYear>2015</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>http://opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <issueManagement>
+    <system>github</system>
+    <url>${project.url}/issues</url>
+  </issueManagement>
+
+  <developers>
+    <developer>
+      <id>ferstl</id>
+      <name>Stefan Ferstl</name>
+      <email>st.ferstl@gmail.com</email>
+      <url>https://github.com/ferstl</url>
+      <timezone>Europe/Vienna</timezone>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:https://github.com/ferstl/jmx-starter.git</connection>
+    <developerConnection>scm:git:git@github.com:ferstl/jmx-starter.git</developerConnection>
+    <url>${project.url}</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>${distribution.release.id}</id>
+      <url>${distribution.release.url}</url>
+    </repository>
+    <snapshotRepository>
+      <id>${distribution.snapshot.id}</id>
+      <url>${distribution.snapshot.url}</url>
+    </snapshotRepository>
+  </distributionManagement>
 
   <prerequisites>
     <maven>3.0</maven>
@@ -39,36 +83,6 @@
   </dependencies>
 
   <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-shade-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <finalName>${uberjar.name}</finalName>
-              <filters>
-                <filter>
-                  <!--
-                      Shading signed JARs will fail without this.
-                      http://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar
-                  -->
-                  <artifact>*:*</artifact>
-                  <excludes>
-                    <exclude>META-INF/*.SF</exclude>
-                    <exclude>META-INF/*.DSA</exclude>
-                    <exclude>META-INF/*.RSA</exclude>
-                  </excludes>
-                </filter>
-              </filters>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -109,6 +123,11 @@
         <plugin>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>2.9.1</version>
+          <configuration>
+            <links>
+              <link>http://docs.oracle.com/javase/8/docs/api/</link>
+            </links>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
@@ -128,6 +147,72 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    
+    <plugins>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>${uberjar.name}</finalName>
+              <filters>
+                <filter>
+                  <!--
+                      Shading signed JARs will fail without this.
+                      http://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar
+                  -->
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
+  
+  <profiles>
+    <profile>
+      <id>deploy-to-sonatype-oss</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
