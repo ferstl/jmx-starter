@@ -1,10 +1,18 @@
 language: java
 
-before_install: ls -alr /usr/lib/jvm/*
+install:
+  - chmod a+rx .travis/*.sh
+  - .travis/setup-environment.sh
 
-jdk:
-- oraclejdk8
-
+env:
+  global:
+    - REQUIRED_JAVA_RUNTIMES="oracle-jdk-1.8.0_40"
+    - REQUIRED_MAVEN_VERSIONS="3.3.1"
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_40
+    - M2_HOME=$HOME/bin/apache-maven-3.3.1
+    - PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
+  
 cache:
   directories:
+  - $HOME/bin
   - $HOME/.m2
