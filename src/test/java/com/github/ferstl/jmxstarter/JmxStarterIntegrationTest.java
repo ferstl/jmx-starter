@@ -24,7 +24,6 @@ import static org.junit.Assert.fail;
 public class JmxStarterIntegrationTest {
 
   private static final PreventSystemExitSecurityManager SYSTEM_EXIT_PREVENTER = new PreventSystemExitSecurityManager();
-  private static final String JAVA_COMMAND = getJavaCommand();
   private static final String TEST_APP_CLASSPATH = "target/test-classes";
 
 
@@ -97,12 +96,13 @@ public class JmxStarterIntegrationTest {
   private static Process startJavaProcess(String classpath, Class<?> mainClass, String... args) {
     String[] finalArgs = new String[args.length + 4];
     System.arraycopy(args, 0, finalArgs, 4, args.length);
-    finalArgs[0] = JAVA_COMMAND;
+    finalArgs[0] = getJavaCommand();
     finalArgs[1] = "-cp";
     finalArgs[2] = classpath;
     finalArgs[3] = mainClass.getName();
 
     try {
+      System.out.println("Starting process" + Arrays.toString(finalArgs));
       return new ProcessBuilder(finalArgs).start();
     } catch (IOException e) {
       throw new IllegalStateException("Unable to start process: " + Arrays.toString(finalArgs), e);
@@ -110,8 +110,12 @@ public class JmxStarterIntegrationTest {
   }
 
   private static String getJavaCommand() {
+    String javaHome = System.getenv("TESTAPP_JAVA_HOME");
+    if (javaHome == null) {
+      javaHome = System.getProperty("java.home");
+    }
+
     boolean isWindows = System.getProperty("os.name", "unknown").toLowerCase().contains("windows");
-    String javaHome = System.getProperty("java.home");
     String javaExecutable = isWindows ? "java.exe" : "java";
 
     return Paths.get(javaHome, "bin", javaExecutable).normalize().toString();
