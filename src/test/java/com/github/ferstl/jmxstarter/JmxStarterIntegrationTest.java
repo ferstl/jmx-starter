@@ -50,17 +50,18 @@ public class JmxStarterIntegrationTest {
     Process testApp = startJavaProcess(TEST_APP_CLASSPATH, TestApplication.class);
     String testAppPid = readPid(testApp);
 
-    // Start the management agent in the test application
-    JmxStarter.main(new String[]{testAppPid});
-
-    // Try to connect to the application
-    verifyManagementAgent();
-
     try {
-      testApp.destroy();
-      testApp.waitFor();
-    } catch (InterruptedException e) {
-      fail("interrupted");
+      // Start the management agent in the test application
+      JmxStarter.main(new String[]{testAppPid});
+      // Try to connect to the application
+      verifyManagementAgent();
+    } finally {
+      try {
+        testApp.destroy();
+        testApp.waitFor();
+      } catch (InterruptedException e) {
+        fail("interrupted");
+      }
     }
   }
 
