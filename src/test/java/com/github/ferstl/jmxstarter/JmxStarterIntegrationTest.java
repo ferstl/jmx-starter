@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.management.RuntimeMXBean;
 import java.net.MalformedURLException;
-import java.nio.file.Paths;
 import java.security.Permission;
-import java.util.Arrays;
 import javax.management.JMX;
 import javax.management.MBeanServerConnection;
 import javax.management.MalformedObjectNameException;
@@ -18,18 +16,15 @@ import javax.management.remote.JMXServiceURL;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import com.github.ferstl.jmxstarter.testapp.TestApplicationRunner;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 public class JmxStarterIntegrationTest {
 
   private static final PreventSystemExitSecurityManager SYSTEM_EXIT_PREVENTER = new PreventSystemExitSecurityManager();
-  private static final String TEST_APP_CLASSPATH = "target/test-classes";
 
-
-  /**
-   * Prevent invocations of {@code System.exit()} during the test.
-   */
+  /** Prevent invocations of {@code System.exit()} during the test. */
   @Before
   public void preventSystemExit() {
     SYSTEM_EXIT_PREVENTER.isSystemExitAllowed = false;
@@ -47,7 +42,7 @@ public class JmxStarterIntegrationTest {
 
   @Test
   public void startManagementAgent() {
-    Process testApp = startJavaProcess(TEST_APP_CLASSPATH, TestApplication.class);
+    Process testApp = TestApplicationRunner.run();
     String testAppPid = readPid(testApp);
 
     try {
@@ -62,6 +57,15 @@ public class JmxStarterIntegrationTest {
       } catch (InterruptedException e) {
         fail("interrupted");
       }
+    }
+  }
+
+  private static String readPid(Process process) {
+    BufferedReader pidReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    try {
+      return pidReader.readLine();
+    } catch (IOException e) {
+      throw new IllegalStateException("Unable to read PID from process.", e);
     }
   }
 
@@ -91,43 +95,6 @@ public class JmxStarterIntegrationTest {
       return new JMXServiceURL("service:jmx:rmi:///jndi/rmi://:7091/jmxrmi");
     } catch (MalformedURLException e) {
       throw new IllegalArgumentException("Cannot create JMX service URL", e);
-    }
-  }
-
-  private static Process startJavaProcess(String classpath, Class<?> mainClass, String... args) {
-    String[] finalArgs = new String[args.length + 4];
-    System.arraycopy(args, 0, finalArgs, 4, args.length);
-    finalArgs[0] = getJavaCommand();
-    finalArgs[1] = "-cp";
-    finalArgs[2] = classpath;
-    finalArgs[3] = mainClass.getName();
-
-    try {
-      System.out.println("Starting process" + Arrays.toString(finalArgs));
-      return new ProcessBuilder(finalArgs).start();
-    } catch (IOException e) {
-      throw new IllegalStateException("Unable to start process: " + Arrays.toString(finalArgs), e);
-    }
-  }
-
-  private static String getJavaCommand() {
-    String javaHome = System.getenv("TESTAPP_JAVA_HOME");
-    if (javaHome == null) {
-      javaHome = System.getProperty("java.home");
-    }
-
-    boolean isWindows = System.getProperty("os.name", "unknown").toLowerCase().contains("windows");
-    String javaExecutable = isWindows ? "java.exe" : "java";
-
-    return Paths.get(javaHome, "bin", javaExecutable).normalize().toString();
-  }
-
-  private static String readPid(Process process) {
-    BufferedReader pidReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-    try {
-      return pidReader.readLine();
-    } catch (IOException e) {
-      throw new IllegalStateException("Unable to read PID from process.", e);
     }
   }
 

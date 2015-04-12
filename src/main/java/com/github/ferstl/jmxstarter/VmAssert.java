@@ -16,7 +16,7 @@ final class VmAssert {
 
   private VmAssert() {}
 
-  static void assertJavaVersion(Properties systemProperties) {
+  static void assertJavaVersion(Properties systemProperties, int reqMajor, int reqMinor) {
     String javaSpec = systemProperties.getProperty(JAVA_SPEC_VERSION_PROP, "0.0");
     Matcher javaSpecMatcher = JAVA_SPEC_VERSION_PATTERN.matcher(javaSpec);
     if (!javaSpecMatcher.matches()) {
@@ -25,7 +25,7 @@ final class VmAssert {
 
     int major = Integer.parseInt(javaSpecMatcher.group(1));
     int minor = Integer.parseInt(javaSpecMatcher.group(2));
-    if (major < 1 || (major == 1 && minor < 8)) {
+    if (major < reqMajor || (major == 1 && minor < reqMinor)) {
       throw new IllegalStateException(String.format(WRONG_JAVA_VERSION_FORMAT, javaSpec));
     }
   }

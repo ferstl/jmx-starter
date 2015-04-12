@@ -1,4 +1,4 @@
-package com.github.ferstl.jmxstarter;
+package com.github.ferstl.jmxstarter.testapp;
 
 import java.lang.management.ManagementFactory;
 

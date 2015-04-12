@@ -30,7 +30,7 @@ public final class JmxStarter {
 
   private static JmxStarterOptions init(String[] args) {
     Properties systemProperties = System.getProperties();
-    assertJavaVersion(systemProperties);
+    assertJavaVersion(systemProperties, 1, 8);
     assertOracleHotspot(systemProperties);
 
     return JmxStarterOptions.parse(args);

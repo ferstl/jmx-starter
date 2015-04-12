@@ -22,7 +22,7 @@ public final class Attacher implements Consumer<String> {
       VirtualMachine vm = VirtualMachine.attach(pid);
 
       Properties targetVmProperties = vm.getSystemProperties();
-      assertJavaVersion(targetVmProperties);
+      assertJavaVersion(targetVmProperties, 1, 7);
       assertOracleHotspot(targetVmProperties);
 
       vm.startManagementAgent(this.managementProperties);
