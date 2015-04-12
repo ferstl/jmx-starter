@@ -11,7 +11,7 @@ public class VmAssertTest {
     Properties props = new Properties();
     props.setProperty(VmAssert.JAVA_SPEC_VERSION_PROP, "1.8");
 
-    VmAssert.assertJavaVersion(props);
+    VmAssert.assertJavaVersion(props, 1, 8);
   }
 
   @Test
@@ -19,7 +19,7 @@ public class VmAssertTest {
     Properties props = new Properties();
     props.setProperty(VmAssert.JAVA_SPEC_VERSION_PROP, "2.0");
 
-    VmAssert.assertJavaVersion(props);
+    VmAssert.assertJavaVersion(props, 1, 8);
   }
 
   @Test
@@ -27,7 +27,7 @@ public class VmAssertTest {
     Properties props = new Properties();
     props.setProperty(VmAssert.JAVA_SPEC_VERSION_PROP, "1.9");
 
-    VmAssert.assertJavaVersion(props);
+    VmAssert.assertJavaVersion(props, 1, 8);
   }
 
   @Test(expected = IllegalStateException.class)
@@ -35,7 +35,7 @@ public class VmAssertTest {
     Properties props = new Properties();
     props.setProperty(VmAssert.JAVA_SPEC_VERSION_PROP, "1.7");
 
-    VmAssert.assertJavaVersion(props);
+    VmAssert.assertJavaVersion(props, 1, 8);
   }
 
   @Test(expected = IllegalStateException.class)
@@ -43,7 +43,7 @@ public class VmAssertTest {
     Properties props = new Properties();
     props.setProperty(VmAssert.JAVA_SPEC_VERSION_PROP, "a.b.c");
 
-    VmAssert.assertJavaVersion(props);
+    VmAssert.assertJavaVersion(props, 1, 8);
   }
 
   @Test
