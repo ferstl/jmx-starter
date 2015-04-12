@@ -91,6 +91,8 @@
           <configuration>
             <source>${java.version}</source>
             <target>${java.version}</target>
+            <testSource>1.7</testSource>
+            <testTarget>1.7</testTarget>
           </configuration>
         </plugin>
         <plugin>
@@ -147,8 +149,41 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    
+
     <plugins>
+<!--       <plugin> -->
+<!--         <groupId>org.apache.maven.plugins</groupId> -->
+<!--         <artifactId>maven-compiler-plugin</artifactId> -->
+<!--         <executions> -->
+<!--           <execution> -->
+<!--             <id>test-compile-default</id> -->
+<!--             <phase>test-compile</phase> -->
+<!--             <goals> -->
+<!--               <goal>testCompile</goal> -->
+<!--             </goals> -->
+<!--             <configuration> -->
+<!--               <testIncludes> -->
+<!--                 <include>**/*</include> -->
+<!--               </testIncludes> -->
+<!--             </configuration> -->
+<!--           </execution> -->
+<!--           <execution> -->
+<!--             <id>test-compile-java7</id> -->
+<!--             <phase>test-compile</phase> -->
+<!--             <goals> -->
+<!--               <goal>testCompile</goal> -->
+<!--             </goals> -->
+<!--             <configuration> -->
+<!--               <testIncludes> -->
+<!--                 <include>**/TestApplication.java</include> -->
+<!--               </testIncludes> -->
+<!--               <source>1.7</source> -->
+<!--               <target>1.7</target> -->
+<!--             </configuration> -->
+<!--           </execution> -->
+
+<!--         </executions> -->
+<!--       </plugin> -->
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
         <executions>
@@ -179,7 +214,7 @@
       </plugin>
     </plugins>
   </build>
-  
+
   <profiles>
     <profile>
       <id>deploy-to-sonatype-oss</id>
