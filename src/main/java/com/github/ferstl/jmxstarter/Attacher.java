@@ -3,7 +3,6 @@ package com.github.ferstl.jmxstarter;
 import java.util.Properties;
 import java.util.function.Consumer;
 import com.sun.tools.attach.VirtualMachine;
-import static com.github.ferstl.jmxstarter.VmAssert.assertJavaVersion;
 import static com.github.ferstl.jmxstarter.VmAssert.assertOracleHotspot;
 
 
@@ -22,7 +21,8 @@ public final class Attacher implements Consumer<String> {
       VirtualMachine vm = VirtualMachine.attach(pid);
 
       Properties targetVmProperties = vm.getSystemProperties();
-      assertJavaVersion(targetVmProperties);
+      // TODO: Probably check for a specific version which does not work anymore.
+      // assertJavaVersion(targetVmProperties);
       assertOracleHotspot(targetVmProperties);
 
       vm.startManagementAgent(this.managementProperties);
