@@ -10,14 +10,21 @@ env:
     - REQUIRED_MAVEN_VERSIONS="3.3.1"
     - M2_HOME=$HOME/bin/apache-maven-3.3.1
     - PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
-  matrix:
-    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_40
-    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_40
-    - JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_40
-    - TESTAPP_JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_40
-    - TESTAPP_JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_40
-    - TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_40
-    - TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_40
+  matrix:    
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_40
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_40
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_40
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_40
+    
+    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_40
+    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_40
+    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_40
+    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_40
+    
+    - JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_40
+    - JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_40
+    - JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_40
+    - JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_40 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_40
   
 cache:
   directories:
