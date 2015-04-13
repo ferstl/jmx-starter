@@ -3,6 +3,8 @@ language: java
 install:
   - chmod a+rx .travis/*.sh
   - .travis/setup-environment.sh
+  - java -version
+  - mvn -version
 
 env:
   global:
