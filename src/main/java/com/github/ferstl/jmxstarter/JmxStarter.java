@@ -4,7 +4,6 @@ import java.util.Properties;
 import java.util.function.Consumer;
 import com.beust.jcommander.ParameterException;
 import static com.github.ferstl.jmxstarter.VmAssert.assertJavaVersion;
-import static com.github.ferstl.jmxstarter.VmAssert.assertOracleHotspot;
 
 
 public final class JmxStarter {
@@ -31,7 +30,6 @@ public final class JmxStarter {
   private static JmxStarterOptions init(String[] args) {
     Properties systemProperties = System.getProperties();
     assertJavaVersion(systemProperties, 1, 8);
-    assertOracleHotspot(systemProperties);
 
     return JmxStarterOptions.parse(args);
   }

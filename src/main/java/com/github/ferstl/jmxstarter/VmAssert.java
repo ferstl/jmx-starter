@@ -9,7 +9,6 @@ final class VmAssert {
 
   private static final Pattern JAVA_SPEC_VERSION_PATTERN = Pattern.compile("(\\d+)\\.(\\d+)(\\.*)?");
   private static final String WRONG_JAVA_VERSION_FORMAT = "Java specification version 1.8 or greater is required. You are using '%s'";
-  private static final String WRONG_JVM_FORMAT = "Oracle HotSpot JVM is required. You are using '%s - %s'";
   static final String JAVA_SPEC_VERSION_PROP = "java.specification.version";
   static final String JAVA_VENDOR_PROP = "java.vendor";
   static final String JAVA_VM_NAME_PROP = "java.vm.name";
@@ -27,15 +26,6 @@ final class VmAssert {
     int minor = Integer.parseInt(javaSpecMatcher.group(2));
     if (major < reqMajor || (major == 1 && minor < reqMinor)) {
       throw new IllegalStateException(String.format(WRONG_JAVA_VERSION_FORMAT, javaSpec));
-    }
-  }
-
-  static void assertOracleHotspot(Properties systemProperties) {
-    String javaVendor = systemProperties.getProperty(JAVA_VENDOR_PROP, "unknown");
-    String vmName = systemProperties.getProperty(JAVA_VM_NAME_PROP, "unknown");
-
-    if (!vmName.toLowerCase().contains("hotspot") || !javaVendor.toLowerCase().contains("oracle")) {
-      throw new IllegalStateException(String.format(WRONG_JVM_FORMAT, javaVendor, vmName));
     }
   }
 }

@@ -45,31 +45,4 @@ public class VmAssertTest {
 
     VmAssert.assertJavaVersion(props, 1, 8);
   }
-
-  @Test
-  public void assertOracleHotspotOk() {
-    Properties props = new Properties();
-    props.put(VmAssert.JAVA_VENDOR_PROP, "Oracle Corporation");
-    props.put(VmAssert.JAVA_VM_NAME_PROP, "Java HotSpot(TM) 64-Bit Server VM");
-
-    VmAssert.assertOracleHotspot(props);
-  }
-
-  @Test(expected = IllegalStateException.class)
-  public void assertOracleHotspotWrongVendor() {
-    Properties props = new Properties();
-    props.put(VmAssert.JAVA_VENDOR_PROP, "Apple Inc.");
-    props.put(VmAssert.JAVA_VM_NAME_PROP, "Java HotSpot(TM) 64-Bit Server VM");
-
-    VmAssert.assertOracleHotspot(props);
-  }
-
-  @Test(expected = IllegalStateException.class)
-  public void assertOracleHotspotWrongVm() {
-    Properties props = new Properties();
-    props.put(VmAssert.JAVA_VENDOR_PROP, "Oracle Corporation");
-    props.put(VmAssert.JAVA_VM_NAME_PROP, "OpenJDK 64-Bit Server VM");
-
-    VmAssert.assertOracleHotspot(props);
-  }
 }

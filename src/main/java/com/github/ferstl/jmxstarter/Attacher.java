@@ -4,7 +4,6 @@ import java.util.Properties;
 import java.util.function.Consumer;
 import com.sun.tools.attach.VirtualMachine;
 import static com.github.ferstl.jmxstarter.VmAssert.assertJavaVersion;
-import static com.github.ferstl.jmxstarter.VmAssert.assertOracleHotspot;
 
 
 // Must be public otherwise we have to use setAccessible(true)
@@ -23,10 +22,8 @@ public final class Attacher implements Consumer<String> {
 
       Properties targetVmProperties = vm.getSystemProperties();
       assertJavaVersion(targetVmProperties, 1, 7);
-      assertOracleHotspot(targetVmProperties);
 
       vm.startManagementAgent(this.managementProperties);
-
       vm.detach();
     } catch (Exception e) {
       throw new IllegalStateException("Unable to attach to process " + pid, e);
