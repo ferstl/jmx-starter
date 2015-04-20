@@ -169,6 +169,10 @@ tmp_ifs=$IFS
 IFS=","
 for rt in $REQUIRED_JAVA_RUNTIMES; do
   case $rt in
+     oracle-jdk-1.8.0_45) install_oracle_java "jdk"  "8" "45" "14";;
+     oracle-server-jre-1.8.0_45) install_oracle_java "server-jre"  "8" "45" "14";;
+     oracle-jre-1.8.0_45) install_oracle_java "jre"  "8" "45" "14";;
+     
      oracle-jdk-1.8.0_40) install_oracle_java "jdk"  "8" "40" "26";;
      oracle-server-jre-1.8.0_40) install_oracle_java "server-jre"  "8" "40" "26";;
      oracle-jre-1.8.0_40) install_oracle_java "jre"  "8" "40" "26";;
@@ -196,6 +200,14 @@ for rt in $REQUIRED_JAVA_RUNTIMES; do
      oracle-jdk-1.8.0) install_oracle_java "jdk"  "8" "" "132";;
      oracle-server-jre-1.8.0) install_oracle_java "server-jre"  "8" "" "132";;
      oracle-jre-1.8.0) install_oracle_java "jre"  "8" "" "132";;
+     
+     oracle-jdk-1.7.0_80) install_oracle_java "jdk"  "7" "80" "15";;
+     oracle-server-jre-1.7.0_80) install_oracle_java "server-jre"  "7" "80" "15";;
+     oracle-jre-1.7.0_80) install_oracle_java "jre"  "7" "80" "15";;
+     
+     oracle-jdk-1.7.0_79) install_oracle_java "jdk"  "7" "79" "15";;
+     oracle-server-jre-1.7.0_79) install_oracle_java "server-jre"  "7" "79" "15";;
+     oracle-jre-1.7.0_79) install_oracle_java "jre"  "7" "79" "15";;
      
      oracle-jdk-1.7.0_75) install_oracle_java "jdk"  "7" "75" "13";;
      oracle-server-jre-1.7.0_75) install_oracle_java "server-jre"  "7" "75" "13";;
