@@ -3,15 +3,15 @@
 
 [![Build Status](https://travis-ci.org/ferstl/jmx-starter.svg?branch=master)](https://travis-ci.org/ferstl/jmx-starter)
 
-The jmx-starter needs to run with a JVM version 1.8 or higher and needs access to the tools.jar, which is part of Oracle JDK, Oracle Server JRE and OpenJDK. Running the jmx-starter with Oracle JRE will not work.
+The jmx-starter needs to run with a JVM version **1.8 Update 40** or higher and needs access to the tools.jar, which is part of Oracle JDK, Oracle Server JRE and OpenJDK. Running the jmx-starter with Oracle JRE will not work.
 
 The target application needs to run with a JVM version 1.7 or higher. It does not need to have access to the tools.jar.
 
 jmx-starter and target application were tested with the following Java runtimes:
 - jmx-starter:
-  - Oracle JDK 1.8
-  - Oracle Server JRE 1.8
-  - OpenJDK 1.8 ([Azul Zulu](http://www.azulsystems.com/products/zulu))
+  - Oracle JDK 1.8.0_40 or greater
+  - Oracle Server JRE 1.8.0_40 or greater
+  - OpenJDK 1.8.0_40 or greater ([Azul Zulu](http://www.azulsystems.com/products/zulu))
 - Target application
   - Oracle JDK 1.8
   - Oracle Server JRE 1.8
