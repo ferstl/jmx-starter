@@ -297,6 +297,7 @@ for rt in $REQUIRED_JAVA_RUNTIMES; do
      oracle-jdk-1.7.0) install_oracle_java "jdk"  "7" "" "";;
      oracle-jre-1.7.0) install_oracle_java "jre"  "7" "" "";;
 
+     azul-zulu-1.8.0_45) install_azul_zulu "2015-04-8.7-bin" "1.8.0_45" "8.7.0.5";;
      azul-zulu-1.8.0_40) install_azul_zulu "2015-03-8.6-bin" "1.8.0_40" "8.6.0.1";;
      azul-zulu-1.8.0_31) install_azul_zulu "2015-01-8.5-bin" "1.8.0_31" "8.5.0.1";;
      azul-zulu-1.8.0_25) install_azul_zulu "2014-10-8.4-bin" "1.8.0_25" "8.4.0.1";;
@@ -305,6 +306,8 @@ for rt in $REQUIRED_JAVA_RUNTIMES; do
      azul-zulu-1.8.0_11) install_azul_zulu "2014-07-8.2-bin" "1.8.0_11" "8.2.0.1";;
      azul-zulu-1.8.0_05) install_azul_zulu "2014-05-8.1-bin" "1.8.0_05" "8.1.0.6";;
      azul-zulu-1.8.0) install_azul_zulu "2014-04-8.0-bin" "1.8.0" "8.0.0.3";;
+     azul-zulu-1.7.0_80) install_azul_zulu "2015-04-8.7-bin" "1.7.0_80" "7.10.0.1";;
+     azul-zulu-1.7.0_79) install_azul_zulu "2015-04-8.7-bin" "1.7.0_79" "7.9.0.2";;
      azul-zulu-1.7.0_76) install_azul_zulu "2015-01-8.5-bin" "1.7.0_76" "7.8.0.3";;
      azul-zulu-1.7.0_72) install_azul_zulu "2014-10-8.4-bin" "1.7.0_72" "7.7.0.1";;
      azul-zulu-1.7.0_65) install_azul_zulu "2014-07-8.2-bin" "1.7.0_65" "7.6.0.1";;
