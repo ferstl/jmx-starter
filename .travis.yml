@@ -4,7 +4,7 @@ install:
   - chmod a+rx .travis/*.sh
   - .travis/setup-environment.sh
   - .travis/setup-mavenrc.sh
-  - ll $JAVA_HOME/bin
+  - ls -al $JAVA_HOME/bin
   - java -version
   - mvn -version
 
