@@ -8,6 +8,9 @@ install:
   - java -version
   - mvn -version
 
+script:
+  - mvn install
+
 env:
   global:
     - REQUIRED_JAVA_RUNTIMES="oracle-jdk-1.8.0_45,oracle-server-jre-1.8.0_45,oracle-jre-1.8.0_45,oracle-jre-1.7.0_80,azul-zulu-1.8.0_45,azul-zulu-1.7.0_80"
