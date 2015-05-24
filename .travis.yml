@@ -9,7 +9,7 @@ install:
   - mvn -version
 
 script:
-  - mvn install
+  - mvn -X clean install
 
 env:
   global:
