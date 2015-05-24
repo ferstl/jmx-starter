@@ -4,8 +4,6 @@ install:
   - chmod a+rx .travis/*.sh
   - .travis/setup-environment.sh
   - .travis/setup-mavenrc.sh
-  - java -version
-  - mvn -version
 
 script:
   - mvn clean install
