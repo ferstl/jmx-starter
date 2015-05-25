@@ -6,10 +6,6 @@ install:
   - .travis/setup-mavenrc.sh
 
 script:
-  - cat /etc/mavenrc
-  - cat ~/.mavenrc
-  - ls -al $JAVA_HOME/bin
-  - $JAVA_HOME/bin/java -version
   - $MAVEN_HOME/bin/mvn clean install
 
 env:
