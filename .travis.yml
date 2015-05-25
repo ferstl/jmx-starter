@@ -6,6 +6,8 @@ install:
   - .travis/setup-mavenrc.sh
 
 script:
+  - cat /etc/mavenrc
+  - cat ~/.mavenrc
   - mvn clean install
 
 env:
