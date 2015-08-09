@@ -36,7 +36,7 @@ env:
     - JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_51 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_51         PATH=$JAVA_HOME/bin:$PATH
     - JAVA_HOME=$HOME/bin/azul-zulu-1.8.0_51 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-1.7.0_85         PATH=$JAVA_HOME/bin:$PATH
 
- cache:
-   directories:
-   - $HOME/download
-   - $HOME/.m2
+cache:
+  directories:
+  - $HOME/download
+  - $HOME/.m2
