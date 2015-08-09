@@ -38,5 +38,5 @@ env:
 
 cache:
   directories:
-  - $HOME/download
-  - $HOME/.m2
+    - $HOME/download
+    - $HOME/.m2
