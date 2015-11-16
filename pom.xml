@@ -120,9 +120,9 @@
           <version>2.5</version>
           <configuration>
             <archive>
-              <manifestEntries>
-                <Main-Class>com.github.ferstl.jmxstarter.JmxStarter</Main-Class>
-              </manifestEntries>
+              <manifest>
+                <mainClass>com.github.ferstl.jmxstarter.JmxStarter</mainClass>
+              </manifest>
             </archive>
           </configuration>
         </plugin>
