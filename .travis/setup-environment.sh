@@ -169,7 +169,55 @@ tmp_ifs=$IFS
 IFS=","
 for rt in $REQUIRED_JAVA_RUNTIMES; do
   case $rt in
-     oracle-jdk-1.8.0_51) install_oracle_java "jdk"  "8" "51" "16";;
+     oracle-jdk-1.8.0_102) install_oracle_java "jdk"  "8" "102" "14";;
+     oracle-server-jre-1.8.0_102) install_oracle_java "server-jre"  "8" "102" "14";;
+     oracle-jre-1.8.0_102) install_oracle_java "jre"  "8" "102" "14";;
+
+     oracle-jdk-1.8.0_101) install_oracle_java "jdk"  "8" "101" "13";;
+     oracle-server-jre-1.8.0_101) install_oracle_java "server-jre"  "8" "101" "13";;
+     oracle-jre-1.8.0_101) install_oracle_java "jre"  "8" "101" "13";;
+
+     oracle-jdk-1.8.0_92) install_oracle_java "jdk"  "8" "92" "14";;
+     oracle-server-jre-1.8.0_92) install_oracle_java "server-jre"  "8" "92" "14";;
+     oracle-jre-1.8.0_92) install_oracle_java "jre"  "8" "92" "14";;
+
+     oracle-jdk-1.8.0_91) install_oracle_java "jdk"  "8" "91" "14";;
+     oracle-server-jre-1.8.0_91) install_oracle_java "server-jre"  "8" "91" "14";;
+     oracle-jre-1.8.0_91) install_oracle_java "jre"  "8" "91" "14";;
+
+     oracle-jdk-1.8.0_77) install_oracle_java "jdk"  "8" "77" "03";;
+     oracle-server-jre-1.8.0_77) install_oracle_java "server-jre"  "8" "77" "03";;
+     oracle-jre-1.8.0_77) install_oracle_java "jre"  "8" "77" "03";;
+
+     oracle-jdk-1.8.0_74) install_oracle_java "jdk"  "8" "74" "02";;
+     oracle-server-jre-1.8.0_74) install_oracle_java "server-jre"  "8" "74" "02";;
+     oracle-jre-1.8.0_74) install_oracle_java "jre"  "8" "74" "02";;
+
+     oracle-jdk-1.8.0_73) install_oracle_java "jdk"  "8" "73" "02";;
+     oracle-server-jre-1.8.0_73) install_oracle_java "server-jre"  "8" "73" "02";;
+     oracle-jre-1.8.0_73) install_oracle_java "jre"  "8" "73" "02";;
+
+     oracle-jdk-1.8.0_72) install_oracle_java "jdk"  "8" "72" "15";;
+     oracle-server-jre-1.8.0_72) install_oracle_java "server-jre"  "8" "72" "15";;
+     oracle-jre-1.8.0_72) install_oracle_java "jre"  "8" "72" "15";;
+
+     oracle-jdk-1.8.0_71) install_oracle_java "jdk"  "8" "71" "15";;
+     oracle-server-jre-1.8.0_71) install_oracle_java "server-jre"  "8" "71" "15";;
+     oracle-jre-1.8.0_71) install_oracle_java "jre"  "8" "71" "15";;
+
+     oracle-jdk-1.8.0_66) install_oracle_java "jdk"  "8" "66" "17";;
+     oracle-server-jre-1.8.0_66) install_oracle_java "server-jre"  "8" "66" "17";;
+     oracle-jre-1.8.0_66) install_oracle_java "jre"  "8" "66" "17";;
+
+     oracle-jdk-1.8.0_65) install_oracle_java "jdk"  "8" "65" "17";;
+     oracle-server-jre-1.8.0_65) install_oracle_java "server-jre"  "8" "65" "17";;
+     oracle-jre-1.8.0_65) install_oracle_java "jre"  "8" "65" "17";;
+
+     oracle-jdk-1.8.0_60) install_oracle_java "jdk"  "8" "60" "27";;
+     oracle-server-jre-1.8.0_60) install_oracle_java "server-jre"  "8" "60" "27";;
+     oracle-jre-1.8.0_60) install_oracle_java "jre"  "8" "60" "27";;
+
+     oracle-jdk-1.8.071) install_oracle_java "jdk"  "8" "51" "16";;
      oracle-server-jre-1.8.0_51) install_oracle_java "server-jre"  "8" "51" "16";;
      oracle-jre-1.8.0_51) install_oracle_java "jre"  "8" "51" "16";;
      
