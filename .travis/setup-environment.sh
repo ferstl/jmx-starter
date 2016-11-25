@@ -129,8 +129,38 @@ install_azul_zulu() {
   else
     echo "${INSTALL_DIR}/${final_name} does already exist. Nothing to install."
   fi
+}
 
+install_azul_zulu2() {
+  zulu_version=$1
+  java_version=$2
 
+  download_url=http://cdn.azul.com/zulu/bin/zulu${zulu_version}-jdk${java_version}-linux_x64.tar.gz
+  download_target=${DOWNLOAD_DIR}/azul-zulu-${java_version}-linux-x64.tar.gz
+  archive_content=zulu${zulu_version}-jdk${java_version}-linux_x64
+  final_name=azul-zulu-${java_version}
+
+  echo "$download_url"
+
+  if [ ! -d $INSTALL_DIR/${final_name} ]; then
+
+    # Download if necessary
+    if [ ! -f ${download_target} ]; then
+      echo "Downloading ${final_name}"
+      curl --create-dirs -o ${download_target} -L "${download_url}"
+    else
+      echo "${download_target} does already exist. No need to download."
+    fi
+
+    # Extract and install
+    echo "Extracting ${download_target} to ${INSTALL_DIR}"
+    tar -xzf ${download_target} -C ${INSTALL_DIR} 
+
+    echo "Rename to ${final_name}"
+    mv -f ${INSTALL_DIR}/${archive_content} ${INSTALL_DIR}/${final_name}
+  else
+    echo "${INSTALL_DIR}/${final_name} does already exist. Nothing to install."
+  fi
 }
 
 install_maven() {
@@ -348,6 +378,8 @@ for rt in $REQUIRED_JAVA_RUNTIMES; do
      
      oracle-jdk-1.7.0) install_oracle_java "jdk"  "7" "" "";;
      oracle-jre-1.7.0) install_oracle_java "jre"  "7" "" "";;
+
+     azul-zulu-8.0.102) install_azul_zulu2 "8.17.0.3" "8.0.102";;
 
      azul-zulu-1.8.0_51) install_azul_zulu "2015-07-8.8-bin" "1.8.0_51" "8.8.0.3";;
      azul-zulu-1.8.0_45) install_azul_zulu "2015-04-8.7-bin" "1.8.0_45" "8.7.0.5";;
