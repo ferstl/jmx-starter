@@ -379,8 +379,10 @@ for rt in $REQUIRED_JAVA_RUNTIMES; do
      oracle-jdk-1.7.0) install_oracle_java "jdk"  "7" "" "";;
      oracle-jre-1.7.0) install_oracle_java "jre"  "7" "" "";;
 
+     azul-zulu-8.0.112) install_azul_zulu2 "8.19.0.1" "8.0.112";;
      azul-zulu-8.0.102) install_azul_zulu2 "8.17.0.3" "8.0.102";;
-
+     azul-zulu-8.0.92) install_azul_zulu2 "8.15.0.1" "8.0.92";;
+     azul-zulu-8.0.91) install_azul_zulu2 "8.14.0.1" "8.0.91";;
      azul-zulu-1.8.0_51) install_azul_zulu "2015-07-8.8-bin" "1.8.0_51" "8.8.0.3";;
      azul-zulu-1.8.0_45) install_azul_zulu "2015-04-8.7-bin" "1.8.0_45" "8.7.0.5";;
      azul-zulu-1.8.0_40) install_azul_zulu "2015-03-8.6-bin" "1.8.0_40" "8.6.0.1";;
@@ -391,6 +393,10 @@ for rt in $REQUIRED_JAVA_RUNTIMES; do
      azul-zulu-1.8.0_11) install_azul_zulu "2014-07-8.2-bin" "1.8.0_11" "8.2.0.1";;
      azul-zulu-1.8.0_05) install_azul_zulu "2014-05-8.1-bin" "1.8.0_05" "8.1.0.6";;
      azul-zulu-1.8.0) install_azul_zulu "2014-04-8.0-bin" "1.8.0" "8.0.0.3";;
+
+     azul-zulu-7.0.121) install_azul_zulu2 "7.16.0.1" "7.0.121";;
+     azul-zulu-7.0.111) install_azul_zulu2 "7.15.0.1" "7.0.111";;
+     azul-zulu-7.0.101) install_azul_zulu2 "7.14.0.5" "7.0.101";;
      azul-zulu-1.7.0_85) install_azul_zulu "2015-07-7.11-bin" "1.7.0_85" "7.11.0.3";;
      azul-zulu-1.7.0_80) install_azul_zulu "2015-04-8.7-bin" "1.7.0_80" "7.10.0.1";;
      azul-zulu-1.7.0_79) install_azul_zulu "2015-04-8.7-bin" "1.7.0_79" "7.9.0.2";;
@@ -400,6 +406,9 @@ for rt in $REQUIRED_JAVA_RUNTIMES; do
      azul-zulu-1.7.0_60) install_azul_zulu "2014-06-7.5-bin" "1.7.0_60" "7.5.0.1";;
      azul-zulu-1.7.0_55) install_azul_zulu "2014-05-8.1-bin" "1.7.0_55" "7.4.0.5";;
      azul-zulu-1.7.0_51) install_azul_zulu "2014-03-7.3-bin" "1.7.0_51" "7.3.0.4";;
+     
+     azul-zulu-6.0.87) install_azul_zulu2 "6.14.0.1" "6.0.87";;
+     azul-zulu-6.0.83) install_azul_zulu2 "6.13.0.3" "6.0.83";;
      azul-zulu-1.6.0_59) install_azul_zulu "2015-01-8.5-bin" "1.6.0_59" "6.7.0.2";;
      azul-zulu-1.6.0_56) install_azul_zulu "2014-10-8.4-bin" "1.6.0_56" "6.6.0.1";;
      azul-zulu-1.6.0_53) install_azul_zulu "2014-07-8.2-bin" "1.6.0_53" "6.5.0.2";;
