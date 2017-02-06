@@ -11,28 +11,28 @@ script:
 
 env:
   global:
-    - REQUIRED_JAVA_RUNTIMES="oracle-jdk-1.8.0_102,oracle-server-jre-1.8.0_102,oracle-jre-1.8.0_102,oracle-jre-1.7.0_80,azul-zulu-8.0.112,azul-zulu-7.0.121"
+    - REQUIRED_JAVA_RUNTIMES="oracle-jdk-1.8.0_121,oracle-server-jre-1.8.0_121,oracle-jre-1.8.0_121,oracle-jre-1.7.0_80,azul-zulu-8.0.112,azul-zulu-7.0.121"
     - REQUIRED_MAVEN_VERSIONS="3.3.9"
     - MAVEN_HOME=$HOME/bin/apache-maven-3.3.9
     - PATH=$MAVEN_HOME/bin:$PATH
   matrix:    
-    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_102        PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_102 PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_102        PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.7.0_80         PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-8.0.112           PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-7.0.121           PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_121        PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_121 PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_121        PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.7.0_80         PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-8.0.112           PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-7.0.121           PATH=$JAVA_HOME/bin:$PATH
     
-    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_102        PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_102 PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_102        PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.7.0_80         PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-8.0.112           PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_102 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-7.0.121           PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_121        PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_121 PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_121        PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.7.0_80         PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-8.0.112           PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_121 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-7.0.121           PATH=$JAVA_HOME/bin:$PATH
     
-    - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_102        PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_102 PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_102        PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jdk-1.8.0_121        PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/oracle-server-jre-1.8.0_121 PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_121        PATH=$JAVA_HOME/bin:$PATH
     - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.7.0_80         PATH=$JAVA_HOME/bin:$PATH
     - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-8.0.112           PATH=$JAVA_HOME/bin:$PATH
     - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-7.0.121           PATH=$JAVA_HOME/bin:$PATH

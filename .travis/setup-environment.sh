@@ -53,6 +53,8 @@ install_oracle_java() {
   jdk_major_version=$2
   jdk_minor_version=$3
   jdk_build_number=$4
+  # As of 8u121
+  md5hash=$5
 
   # JDK full version string as it appears in the download URL, e.g. 8u40-b26
   jdk_full_version_string=${jdk_major_version}u${jdk_minor_version}-b${jdk_build_number}
@@ -73,7 +75,7 @@ install_oracle_java() {
   # Final name of the downloaded file and of the installation folder
   final_name="oracle-${java_runtime}-${archive_version}"
 
-  download_url=http://download.oracle.com/otn-pub/java/jdk/${jdk_full_version_string}/${java_runtime}-${jdk_version_string}-linux-x64.tar.gz
+  download_url=http://download.oracle.com/otn-pub/java/jdk/${jdk_full_version_string}/${md5hash}/${java_runtime}-${jdk_version_string}-linux-x64.tar.gz
   download_target=${DOWNLOAD_DIR}/oracle-${java_runtime}-${jdk_version_string}.tar.gz
 
   if [ ! -d $INSTALL_DIR/${final_name} ]; then
@@ -199,6 +201,18 @@ tmp_ifs=$IFS
 IFS=","
 for rt in $REQUIRED_JAVA_RUNTIMES; do
   case $rt in
+     oracle-jdk-1.8.0_121) install_oracle_java "jdk"  "8" "121" "13" "e9e7ea248e2c4826b92b3f075a80e441";;
+     oracle-server-jre-1.8.0_121) install_oracle_java "server-jre"  "8" "121" "13" "e9e7ea248e2c4826b92b3f075a80e441";;
+     oracle-jre-1.8.0_121) install_oracle_java "jre"  "8" "121" "13" "e9e7ea248e2c4826b92b3f075a80e441";;
+
+     oracle-jdk-1.8.0_112) install_oracle_java "jdk"  "8" "112" "15";;
+     oracle-server-jre-1.8.0_112) install_oracle_java "server-jre"  "8" "112" "15";;
+     oracle-jre-1.8.0_112) install_oracle_java "jre"  "8" "112" "15";;
+
+     oracle-jdk-1.8.0_111) install_oracle_java "jdk"  "8" "111" "14";;
+     oracle-server-jre-1.8.0_111) install_oracle_java "server-jre"  "8" "111" "14";;
+     oracle-jre-1.8.0_111) install_oracle_java "jre"  "8" "111" "14";;
+
      oracle-jdk-1.8.0_102) install_oracle_java "jdk"  "8" "102" "14";;
      oracle-server-jre-1.8.0_102) install_oracle_java "server-jre"  "8" "102" "14";;
      oracle-jre-1.8.0_102) install_oracle_java "jre"  "8" "102" "14";;
