@@ -36,7 +36,7 @@ env:
     - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.8.0_131        PATH=$JAVA_HOME/bin:$PATH
     - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/oracle-jre-1.7.0_80         PATH=$JAVA_HOME/bin:$PATH
     - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-8.0.112           PATH=$JAVA_HOME/bin:$PATH
-    - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-7.0.131           PATH=$JAVA_HOME/bin:$PATH
+    - JAVA_HOME=$HOME/bin/azul-zulu-8.0.112 TESTAPP_JAVA_HOME=$HOME/bin/azul-zulu-7.0.121           PATH=$JAVA_HOME/bin:$PATH
 
 cache:
   directories:
