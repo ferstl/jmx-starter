@@ -201,6 +201,10 @@ tmp_ifs=$IFS
 IFS=","
 for rt in $REQUIRED_JAVA_RUNTIMES; do
   case $rt in
+     oracle-jdk-1.8.0_141) install_oracle_java "jdk"  "8" "141" "15" "336fa29ff2bb4ef291e347e091f7f4a7";;
+     oracle-server-jre-1.8.0_141) install_oracle_java "server-jre"  "8" "141" "15" "336fa29ff2bb4ef291e347e091f7f4a7";;
+     oracle-jre-1.8.0_141) install_oracle_java "jre"  "8" "141" "15" "336fa29ff2bb4ef291e347e091f7f4a7";;
+
      oracle-jdk-1.8.0_131) install_oracle_java "jdk"  "8" "131" "11" "d54c1d3a095b4ff2b6607d096fa80163";;
      oracle-server-jre-1.8.0_131) install_oracle_java "server-jre"  "8" "131" "11" "d54c1d3a095b4ff2b6607d096fa80163";;
      oracle-jre-1.8.0_131) install_oracle_java "jre"  "8" "131" "11" "d54c1d3a095b4ff2b6607d096fa80163";;
